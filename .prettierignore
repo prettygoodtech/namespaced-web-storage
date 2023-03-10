@@ -1,0 +1,6 @@
+# Build artifacts
+lib
+types
+
+# Documentation
+*.md

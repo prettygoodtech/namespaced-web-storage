@@ -1,0 +1,59 @@
+{
+  "name": "@prettygoodtech/namespaced-web-storage",
+  "version": "0.1.0",
+  "description": "A thin wrapper to use the Web Storage API with namespaces, easily, and safely.",
+  "keywords": [
+    "webstorage",
+    "webstorageapi",
+    "web-storage",
+    "web-storage-api",
+    "localstorage",
+    "sessionstorage",
+    "namespace",
+    "namespacing",
+    "typescript",
+    "esm",
+    "esmodule",
+    "es-module"
+  ],
+  "type": "module",
+  "module": "lib/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/",
+    "!lib/**/*.test.js",
+    "!lib/**/*.spec.js",
+    "types/",
+    "!types/**/*.test.d.ts",
+    "!types/**/*.spec.d.ts",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prettygoodtech/namespaced-web-storage.git"
+  },
+  "bugs": "https://github.com/prettygoodtech/namespaced-web-storage/issues",
+  "homepage": "https://github.com/prettygoodtech/namespaced-web-storage#readme",
+  "author": "Matei Bogdan Radu <opensource@mateiradu.dev>",
+  "license": "Apache-2.0",
+  "private": true,
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "scripts": {
+    "prebuild": "shx rm -rf lib types",
+    "build": "tsc",
+    "test": "ava",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^3.0.1",
+    "ava": "^5.2.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "2.8.4",
+    "shx": "^0.3.4",
+    "typescript": "^5.0.1-rc"
+  }
+}
