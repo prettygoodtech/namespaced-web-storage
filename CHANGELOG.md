@@ -6,7 +6,18 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### Added
+- `NamespacedStorage` class with
+  - `length`
+  - `setItem`
+  - `getItem`
+  - `deleteItem`
+  - `key`
+  - `clear`
 
+### Changed
+- Preserve comments in output files. This is done by removing
+`removeComments: true` from `tsconfig.json`.
 
 [Unreleased]: https://github.com/prettygoodtech/namespaced-web-storage/compare/e61e635ae62b128ef724ee3ab981e9a935fe2c2d...HEAD
 [keep_a_changelog]: https://keepachangelog.com/en/1.0.0/
