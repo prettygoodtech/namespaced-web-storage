@@ -7,6 +7,37 @@
 A thin wrapper to use the [Web Storage API][mdn_web_storage] with namespaces,
 easily, and safely. Built with [TypeScript][typescript].
 
+## Installation and Usage
+First, install the package:
+
+```shell
+$ npm install @prettygoodtech/namespaced-web-storage
+```
+
+Now you can use `NamespacedStorage` to create a new instance based on
+`localStorage`, `sessionStorage`, or any [Storage][mdn_storage_interface]
+compatible implementation like [node-storage-shim][node_storage_shim] for
+Node.js.
+
+```javascript
+import { NamespacedStorage } from "@prettygoodtech/namespaced-web-storage";
+
+const nsStorage = new NamespacedStorage(window.localStorage, "my-prefix");
+
+// Will store with key my-prefix:preferred-theme
+nsStorage.setItem("preferred-theme", "dark");
+
+// Will retrieve item with key my-prefix:last-accessed-on
+const lastAccessedOn = nsStorage.getItem("last-accessed-on");
+```
+
+### Caveats
+- This package is still in its infancy and some features are not available yet.
+- While you can use third-party `Storage` implementations, they might not follow
+the spec comprehensively. This means that any quirks they might have will still
+be present when using this package, and may even lead to unexpected errors.
+Your mileage may vary.
+
 ## Contributing
 Please read the [Contributing Guidelines][contributing] and abide by the [Code of Conduct][code_of_conduct].
 
@@ -18,7 +49,9 @@ of the License is included with this project at [LICENSE][license_local].
 Alternatively, you may obtain a copy of the License at [https://www.apache.org/licenses/LICENSE-2.0][license_upstream].
 
 [mdn_web_storage]: https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
+[mdn_storage_interface]: https://developer.mozilla.org/en-US/docs/Web/API/Storage
 [typescript]: https://www.typescriptlang.org/
+[node_storage_shim]: https://github.com/mnahkies/node-storage-shim
 [code_of_conduct]: CODE_OF_CONDUCT.md
 [contributing]: CONTRIBUTING.md
 [license_local]: LICENSE
