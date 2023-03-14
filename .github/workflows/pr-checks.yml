@@ -1,0 +1,15 @@
+name: PR Checks
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  prettier:
+    uses: ./.github/workflows/prettier.yml
