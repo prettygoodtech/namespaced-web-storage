@@ -23,6 +23,8 @@
     "lib/",
     "!lib/**/*.test.js",
     "!lib/**/*.spec.js",
+    "!lib/**/*.test.js.map",
+    "!lib/**/*.spec.js.map",
     "types/",
     "!types/**/*.test.d.ts",
     "!types/**/*.spec.d.ts",
@@ -43,12 +45,13 @@
   "scripts": {
     "prebuild": "shx rm -rf lib types",
     "build": "tsc",
-    "test": "ava",
+    "test": "c8 ava",
     "prepare": "husky install"
   },
   "devDependencies": {
     "@ava/typescript": "^3.0.1",
     "ava": "^5.2.0",
+    "c8": "^7.13.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "node-storage-shim": "^2.0.1",
