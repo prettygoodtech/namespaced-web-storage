@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Added
+- Source maps are now generated and included.
+
+### Changed
+- The npm script `test` will not also generate test coverage reports.
+
 ## [0.1.0] - 2023-03-13
 ### Added
 - `NamespacedStorage` class with
