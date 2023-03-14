@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning][semver].
 - Source maps are now generated and included.
 
 ### Changed
+- Improve README documentation:
+  - Add "Installation and Usage" section
+  - Add info badges at the top
 - The npm script `test` will not also generate test coverage reports.
 
 ## [0.1.0] - 2023-03-13
