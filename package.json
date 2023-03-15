@@ -25,6 +25,8 @@
     "!lib/**/*.test.js.map",
     "types/",
     "!types/**/*.test.d.ts",
+    "src/",
+    "!src/**/*.test.ts",
     "CHANGELOG.md",
     "SECURITY.md"
   ],

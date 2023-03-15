@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning][semver].
 ### Changed
 - Rename test files to use `test` instead of `spec`.
 
+### Fixed
+- Include TypeScript source files in package releases. Release [0.2.0] added
+source maps, but they are useless without source files.
+
 ## [0.2.0] - 2023-03-14
 ### Added
 - Source maps are now generated and included.
