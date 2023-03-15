@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### Changed
+- Rename test files to use `test` instead of `spec`.
 
 ## [0.2.0] - 2023-03-14
 ### Added
