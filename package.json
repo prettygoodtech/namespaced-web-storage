@@ -1,6 +1,6 @@
 {
   "name": "@prettygoodtech/namespaced-web-storage",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A thin wrapper to use the Web Storage API with namespaces, easily, and safely.",
   "keywords": [
     "webstorage",
