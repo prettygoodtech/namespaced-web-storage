@@ -7,6 +7,19 @@
 A thin wrapper to use the [Web Storage API][mdn_web_storage] with namespaces,
 easily, and safely. Built with [TypeScript][typescript].
 
+## Features
+- Works with `localStorage`, `sessionStorage`, and any
+[Storage][mdn_storage_interface]-compatible implementation like [node-storage-shim][node_storage_shim]
+for Node.js.
+- Supports `setItem`, `getItem`, `deleteItem`, `clear`, and `key` methods.
+- Supports `length` property.
+- Small footprint.
+- TypeScript declarations.
+
+### Roadmap to v1
+- Support for dot notation property accessor.
+- Support for bracket notation property accessor.
+
 ## Installation and Usage
 First, install the package:
 
@@ -14,10 +27,8 @@ First, install the package:
 $ npm install @prettygoodtech/namespaced-web-storage
 ```
 
-Now you can use `NamespacedStorage` to create a new instance based on
-`localStorage`, `sessionStorage`, or any [Storage][mdn_storage_interface]
-compatible implementation like [node-storage-shim][node_storage_shim] for
-Node.js.
+Now you can use `NamespacedStorage` to create a new instance based on your
+[Storage][mdn_storage_interface] implementation of choice:
 
 ```javascript
 import { NamespacedStorage } from "@prettygoodtech/namespaced-web-storage";
