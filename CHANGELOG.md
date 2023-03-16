@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning][semver].
 - "Features" section to README.
 
 ### Changed
-- Upgrade TypeScript from `5.0.1-rc` to `5.0.2`, thus switching to a stable
+- Upgrade `@ava/typescript` from `3.0.1` to `4.0.0`.
+- Upgrade `typescript` from `5.0.1-rc` to `5.0.2`, thus switching to a stable
 release.
 
 ## [0.2.1] - 2023-03-15
