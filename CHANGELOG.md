@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### Changed
+- Upgrade TypeScript from `5.0.1-rc` to `5.0.2`, thus switching to a stable
+release.
 
 ## [0.2.1] - 2023-03-15
 ### Changed

@@ -56,6 +56,6 @@
     "node-storage-shim": "^2.0.1",
     "prettier": "2.8.4",
     "shx": "^0.3.4",
-    "typescript": "^5.0.1-rc"
+    "typescript": "^5.0.2"
   }
 }
