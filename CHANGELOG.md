@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning][semver].
 ## [Unreleased]
 ### Added
 - "Features" section to README.
+- Support for dot and bracket property accessors.
 
 ### Changed
 - Upgrade `@ava/typescript` from `3.0.1` to `4.0.0`.

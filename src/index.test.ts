@@ -32,18 +32,18 @@ test.beforeEach((t) => {
   t.context.storage.clear();
 });
 
-test("NamespacedStorage - constructor", (t) => {
+test.serial("NamespacedStorage - constructor", (t) => {
   t.notThrows(() => new NamespacedStorage(t.context.storage, "foo"));
 });
 
-test("NamespacedStorage - setItem", (t) => {
+test.serial("NamespacedStorage - setItem", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   nsStorage.setItem("user-id", "1234");
 
   t.is(t.context.storage.getItem("foo:user-id"), "1234");
 });
 
-test("NamespacedStorage - getItem", (t) => {
+test.serial("NamespacedStorage - getItem", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   t.context.storage.setItem("foo:user-id", "1234");
   t.context.storage.setItem("user-id", "5678");
@@ -51,7 +51,7 @@ test("NamespacedStorage - getItem", (t) => {
   t.is(nsStorage.getItem("user-id"), "1234");
 });
 
-test("NamespacedStorage - removeItem", (t) => {
+test.serial("NamespacedStorage - removeItem", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   t.context.storage.setItem("foo:user-id", "1234");
   t.context.storage.setItem("user-id", "5678");
@@ -62,7 +62,7 @@ test("NamespacedStorage - removeItem", (t) => {
   t.is(t.context.storage.getItem("user-id"), "5678");
 });
 
-test("NamespacedStorage - clear", (t) => {
+test.serial("NamespacedStorage - clear", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   t.context.storage.setItem("foo:user-id", "1234");
   t.context.storage.setItem("foo:preferred-theme", "dark");
@@ -76,7 +76,7 @@ test("NamespacedStorage - clear", (t) => {
   t.is(t.context.storage.getItem("user-id"), "5678");
 });
 
-test("NamespacedStorage - length", (t) => {
+test.serial("NamespacedStorage - length", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   t.context.storage.setItem("foo:user-id", "1234");
   t.context.storage.setItem("foo:preferred-theme", "dark");
@@ -85,7 +85,7 @@ test("NamespacedStorage - length", (t) => {
   t.is(nsStorage.length, 2);
 });
 
-test("NamespacedStorage - key", (t) => {
+test.serial("NamespacedStorage - key", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   t.context.storage.setItem("foo:user-id", "1234"); // idx 0, ns_idx 0
   t.context.storage.setItem("user-id", "5678"); // idx 1, ns_idx -
@@ -94,3 +94,122 @@ test("NamespacedStorage - key", (t) => {
   t.is(nsStorage.key(0), "user-id");
   t.is(nsStorage.key(1), "preferred-theme");
 });
+
+test.serial("NamespacedStorage - dot notation - assignment", (t) => {
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+  nsStorage.user_id = "1234";
+
+  t.is(t.context.storage.getItem("foo:user_id"), "1234");
+});
+
+test.serial(
+  "NamespacedStorage - dot notation - don't overwrite methods",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+    // @ts-ignore, TypeScript already prevents overwriting methods because of type
+    // mismatch, but a test is necessary for plain JS use.
+    nsStorage.setItem = "1234";
+
+    t.is(typeof nsStorage.setItem, "function");
+  }
+);
+
+test.serial("NamespacedStorage - dot notation - access key/value pair", (t) => {
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+  t.context.storage.setItem("foo:user_id", "5678");
+
+  t.is(nsStorage.user_id, "5678");
+});
+
+test.serial("NamespacedStorage - dot notation - access storage method", (t) => {
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.is(typeof nsStorage.setItem, "function");
+});
+
+test.serial("NamespacedStorage - dot notation - delete key/value pair", (t) => {
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+  t.context.storage.setItem("foo:user_id", "5678");
+
+  // Check key/value pair is actually available
+  t.is(nsStorage.user_id, "5678");
+  delete nsStorage.user_id;
+  t.is(nsStorage.user_id, null);
+});
+
+test.serial(
+  "NamespacedStorage - dot notation - don't delete storage method",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+    // @ts-ignore, TypeScript already prevents deleting explicitly defined,
+    // non-optional properties, but a test is necessary for plain JS use.
+    delete nsStorage.setItem;
+    t.is(typeof nsStorage.setItem, "function");
+  }
+);
+
+test.serial("NamespacedStorage - bracket notation - assignment", (t) => {
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+  nsStorage["user_id"] = "1234";
+
+  t.is(t.context.storage.getItem("foo:user_id"), "1234");
+});
+
+test.serial(
+  "NamespacedStorage - bracket notation - don't overwrite methods",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+    // @ts-ignore, TypeScript already prevents overwriting methods because of type
+    // mismatch, but a test is necessary for plain JS use.
+    nsStorage["setItem"] = "1234";
+
+    t.is(typeof nsStorage["setItem"], "function");
+  }
+);
+
+test.serial(
+  "NamespacedStorage - bracket notation - access key/value pair",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+    t.context.storage.setItem("foo:user_id", "5678");
+
+    t.is(nsStorage["user_id"], "5678");
+  }
+);
+
+test.serial(
+  "NamespacedStorage - bracket notation - access storage method",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+    t.is(typeof nsStorage["setItem"], "function");
+  }
+);
+
+test.serial(
+  "NamespacedStorage - bracket notation - delete key/value pair",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+    t.context.storage.setItem("foo:user_id", "5678");
+
+    // Check key/value pair is actually available
+    t.is(nsStorage["user_id"], "5678");
+    delete nsStorage["user_id"];
+    t.is(nsStorage["user_id"], null);
+  }
+);
+
+test.serial(
+  "NamespacedStorage - bracket notation - don't delete storage method",
+  (t) => {
+    const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+    // @ts-ignore, TypeScript already prevents deleting explicitly defined,
+    // non-optional properties, but a test is necessary for plain JS use.
+    delete nsStorage["setItem"];
+    t.is(typeof nsStorage["setItem"], "function");
+  }
+);

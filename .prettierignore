@@ -1,6 +1,7 @@
 # Build artifacts
 lib
 types
+coverage
 
 # Documentation
 *.md
