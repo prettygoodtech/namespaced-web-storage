@@ -30,7 +30,63 @@ const isKeyPrefixed = (key: string, prefix: string): boolean => {
   return key.startsWith(prefix + PREFIX_SEPARATOR);
 };
 
+const RESERVED_PROPERTIES = [
+  // Storage properties
+  "length",
+  "key",
+  "setItem",
+  "getItem",
+  "removeItem",
+  "clear",
+  // Private properties
+  "storage",
+  "prefix",
+  // Private custom methods
+  "getNamespacedEntries",
+];
+
+const propertyAccessorHandler: ProxyHandler<NamespacedStorage> = {
+  // Necessary for:
+  //  - nsStorage.foo = "bar"
+  //  - nsStorage["foo"] = "bar"
+  set: (target, property: string, value: string) => {
+    if (RESERVED_PROPERTIES.includes(property)) {
+      return true;
+    }
+
+    target.setItem(property, value);
+    return true;
+  },
+
+  // Necessary for:
+  //  - const foo = nsStorage.foo
+  //  - const foo = nsStorage["foo"]
+  get: (target, property: string): string | null => {
+    if (RESERVED_PROPERTIES.includes(property)) {
+      return target[property];
+    }
+
+    return target.getItem(property);
+  },
+
+  // Necessary for:
+  //  - delete nsStorage.foo
+  //  - delete nsStorage["foo"]
+  deleteProperty: (target, property: string): boolean => {
+    if (RESERVED_PROPERTIES.includes(property)) {
+      // Storage seems to return true when attempting to delete a reserved
+      // property, even if this property is never really removed.
+      return true;
+    }
+
+    target.removeItem(property);
+    return true;
+  },
+};
+
 export class NamespacedStorage implements Storage {
+  [key: string]: any;
+
   /**
    * Creates a new instance of `NamespacedStorage` based on the given
    * `storage` implementation.
@@ -38,7 +94,9 @@ export class NamespacedStorage implements Storage {
    * All methods will operate on the given `storage` object using the given
    * `prefix` to create a namespace for keys.
    */
-  constructor(private storage: Storage, private prefix: string) {}
+  constructor(private storage: Storage, private prefix: string) {
+    return new Proxy(this, propertyAccessorHandler);
+  }
 
   /** Returns the number of key/value pairs in the namespace. */
   public get length(): number {

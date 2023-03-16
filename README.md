@@ -13,12 +13,9 @@ easily, and safely. Built with [TypeScript][typescript].
 for Node.js.
 - Supports `setItem`, `getItem`, `deleteItem`, `clear`, and `key` methods.
 - Supports `length` property.
-- Small footprint.
+- Supports dot and bracket property accessors.
+- Small footprint with zero dependencies.
 - TypeScript declarations.
-
-### Roadmap to v1
-- Support for dot notation property accessor.
-- Support for bracket notation property accessor.
 
 ## Installation and Usage
 First, install the package:
@@ -40,6 +37,14 @@ nsStorage.setItem("preferred-theme", "dark");
 
 // Will retrieve item with key my-prefix:last-accessed-on
 const lastAccessedOn = nsStorage.getItem("last-accessed-on");
+
+// Dot notation, will use key my-prefix:favorite
+nsStorage.favorite = "sport-section"; 
+delete nsStorage.favorite;
+
+// Bracket notation, will use key my-prefix:favorite
+nsStorage["favorite"] = "sport-section";
+delete nsStorage["favorite"];
 ```
 
 ### Caveats
