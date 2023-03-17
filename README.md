@@ -14,6 +14,7 @@ for Node.js.
 - Supports `setItem`, `getItem`, `deleteItem`, `clear`, and `key` methods.
 - Supports `length` property.
 - Supports dot and bracket property accessors.
+- Supports `Object.keys`, `Object.values`, and `Object.entries` static methods.
 - Small footprint with zero dependencies.
 - TypeScript declarations.
 

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Added
+- Support for the following `Object` static methods:
+  - `keys`
+  - `values`
+  - `entries`
+  - `getOwnPropertyNames`
+  - `getOwnPropertyDescriptor`
+  - `getOwnPropertyDescriptors`
+
 ## [0.3.0] - 2023-03-16
 ### Added
 - "Features" section to README.

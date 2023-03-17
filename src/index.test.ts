@@ -213,3 +213,87 @@ test.serial(
     t.is(typeof nsStorage["setItem"], "function");
   }
 );
+
+test.serial("NamespacedStorage - Object.keys", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.keys(nsStorage), ["user-id", "preferred-theme"]);
+});
+
+test.serial("NamespacedStorage - Object.values", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.values(nsStorage), ["1234", "dark"]);
+});
+
+test.serial("NamespacedStorage - Object.entries", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.entries(nsStorage), [
+    ["user-id", "1234"],
+    ["preferred-theme", "dark"],
+  ]);
+});
+
+test.serial("NamespacedStorage - Object.getOwnPropertyNames", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.getOwnPropertyNames(nsStorage), [
+    "user-id",
+    "preferred-theme",
+  ]);
+});
+
+test.serial("NamespacedStorage - Object.getOwnPropertyDescriptor", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.getOwnPropertyDescriptor(nsStorage, "preferred-theme"), {
+    configurable: true,
+    enumerable: true,
+    value: "dark",
+    writable: true,
+  });
+});
+
+test.serial("NamespacedStorage - Object.getOwnPropertyDescriptors", (t) => {
+  t.context.storage.setItem("foo:user-id", "1234");
+  t.context.storage.setItem("banner-closed", "true");
+  t.context.storage.setItem("foo:preferred-theme", "dark");
+
+  const nsStorage = new NamespacedStorage(t.context.storage, "foo");
+
+  t.deepEqual(Object.getOwnPropertyDescriptors(nsStorage), {
+    "user-id": {
+      configurable: true,
+      enumerable: true,
+      value: "1234",
+      writable: true,
+    },
+    "preferred-theme": {
+      configurable: true,
+      enumerable: true,
+      value: "dark",
+      writable: true,
+    },
+  });
+});
