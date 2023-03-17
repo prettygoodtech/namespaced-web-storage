@@ -45,7 +45,7 @@ const RESERVED_PROPERTIES = [
   "getNamespacedEntries",
 ];
 
-const propertyAccessorHandler: ProxyHandler<NamespacedStorage> = {
+const proxyHandler: ProxyHandler<NamespacedStorage> = {
   // Necessary for:
   //  - nsStorage.foo = "bar"
   //  - nsStorage["foo"] = "bar"
@@ -82,6 +82,37 @@ const propertyAccessorHandler: ProxyHandler<NamespacedStorage> = {
     target.removeItem(property);
     return true;
   },
+
+  ownKeys: (target): string[] => {
+    const keys: string[] = [];
+    for (let i = 0; i < target.length; i++) {
+      keys.push(target.key(i)!);
+    }
+
+    return keys;
+  },
+
+  getOwnPropertyDescriptor: (
+    target,
+    property: string
+  ): PropertyDescriptor | undefined => {
+    if (RESERVED_PROPERTIES.includes(property)) {
+      return;
+    }
+
+    const value = target.getItem(property);
+
+    if (!value) {
+      return;
+    }
+
+    return {
+      value,
+      configurable: true,
+      enumerable: true,
+      writable: true,
+    };
+  },
 };
 
 export class NamespacedStorage implements Storage {
@@ -95,7 +126,7 @@ export class NamespacedStorage implements Storage {
    * `prefix` to create a namespace for keys.
    */
   constructor(private storage: Storage, private prefix: string) {
-    return new Proxy(this, propertyAccessorHandler);
+    return new Proxy(this, proxyHandler);
   }
 
   /** Returns the number of key/value pairs in the namespace. */
