@@ -36,6 +36,49 @@ test.serial("NamespacedStorage - constructor", (t) => {
   t.notThrows(() => new NamespacedStorage(t.context.storage, "foo"));
 });
 
+const invalidPrefixTestValues = [
+  {
+    prefix: undefined,
+    errorMessage: 'Prefix is of type "undefined", expected "string".',
+  },
+  {
+    prefix: true,
+    errorMessage: 'Prefix is of type "boolean", expected "string".',
+  },
+  {
+    prefix: null,
+    errorMessage: 'Prefix is of type "object", expected "string".',
+  },
+  {
+    prefix: 1234,
+    errorMessage: 'Prefix is of type "number", expected "string".',
+  },
+  {
+    prefix: {},
+    errorMessage: 'Prefix is of type "object", expected "string".',
+  },
+  {
+    prefix: "",
+    errorMessage:
+      "Prefix cannot be an empty string or composed of only whitespaces.",
+  },
+  {
+    prefix: "    ",
+    errorMessage:
+      "Prefix cannot be an empty string or composed of only whitespaces.",
+  },
+];
+invalidPrefixTestValues.forEach(({ prefix, errorMessage }) => {
+  test.serial(
+    `NamespacedStorage - constructor - throws on invalid prefix (${prefix})`,
+    (t) => {
+      t.throws(() => new NamespacedStorage(t.context.storage, prefix as any), {
+        message: errorMessage,
+      });
+    }
+  );
+});
+
 test.serial("NamespacedStorage - setItem", (t) => {
   const nsStorage = new NamespacedStorage(t.context.storage, "foo");
   nsStorage.setItem("user-id", "1234");

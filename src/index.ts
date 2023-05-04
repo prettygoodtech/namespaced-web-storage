@@ -30,6 +30,18 @@ const isKeyPrefixed = (key: string, prefix: string): boolean => {
   return key.startsWith(prefix + PREFIX_SEPARATOR);
 };
 
+const assertPrefixIsValid = (prefix: unknown): void => {
+  if (typeof prefix !== "string") {
+    throw new Error(`Prefix is of type "${typeof prefix}", expected "string".`);
+  }
+
+  if (prefix.trim().length === 0) {
+    throw new Error(
+      "Prefix cannot be an empty string or composed of only whitespaces."
+    );
+  }
+};
+
 const RESERVED_PROPERTIES = [
   // Storage properties
   "length",
@@ -126,6 +138,7 @@ export class NamespacedStorage implements Storage {
    * `prefix` to create a namespace for keys.
    */
   constructor(private storage: Storage, private prefix: string) {
+    assertPrefixIsValid(prefix);
     return new Proxy(this, proxyHandler);
   }
 
