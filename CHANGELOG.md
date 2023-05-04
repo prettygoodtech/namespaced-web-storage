@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+
+## [0.5.0] - 2023-05-04
 ### Added
 - Assertion for `prefix` constructor argument. The constructor will now throw if
 the `prefix` is not a non-empty string.
@@ -63,7 +65,8 @@ source maps, but they are useless without source files.
   - `key`
   - `clear`
 
-[Unreleased]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/prettygoodtech/namespaced-web-storage/compare/v0.2.0...v0.2.1
