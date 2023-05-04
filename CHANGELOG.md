@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### Added
+- Assertion for `prefix` constructor argument. The constructor will now throw if
+the `prefix` is not a non-empty string.
+
 ### Changed
 - Upgrade `lint-staged` from `13.2.0` to `13.2.2`.
 - Upgrade `prettier` from `2.8.4` to `2.8.8`.
