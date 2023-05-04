@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog][keep_a_changelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### Changed
+- Upgrade `lint-staged` from `13.2.0` to `13.2.2`.
+- Upgrade `prettier` from `2.8.4` to `2.8.8`.
+- Upgrade `typescript` from `5.0.2` to `5.0.4`.
 
 ## [0.4.0] - 2023-03-17
 ### Added
